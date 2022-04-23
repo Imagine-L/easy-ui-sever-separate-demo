@@ -1,0 +1,38 @@
+server:
+  servlet:
+    context-path: /admin
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ydl_ssm?&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    druid:
+      min-idle: 20
+      max-active: 50
+      initial-size: 10
+  task:
+    execution:
+      pool:
+        core-size: 20
+        keep-alive: 120
+        queue-capacity: 500
+        max-size: 100
+
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true  # 为了使用输入页数为负或者超出最大页时候使页数为最小或最大值
+  supportMethodsArguments: true
+  params: count=countSql
+  pageSizeZero: true
+
+liubai:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    max-idle: 30
+    min-idle: 20
+    max-total: 100
+  thread:
+    core-pool-size: 30

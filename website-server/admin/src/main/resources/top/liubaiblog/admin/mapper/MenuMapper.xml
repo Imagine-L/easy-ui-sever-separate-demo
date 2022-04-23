@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.liubaiblog.admin.mapper.MenuMapper" >
+  <resultMap id="BaseResultMap" type="top.liubaiblog.admin.pojo.Menu" >
+    <id column="menu_id" property="menuId" jdbcType="BIGINT" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="perms" property="perms" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="component" property="component" jdbcType="VARCHAR" />
+    <result column="menu_type" property="menuType" jdbcType="CHAR" />
+    <result column="visible" property="visible" jdbcType="CHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ydl_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="top.liubaiblog.admin.pojo.Menu" >
+    insert into ydl_menu (menu_id, menu_name, perms, 
+      parent_id, order_num, path, 
+      component, menu_type, visible, 
+      icon, create_by, create_time, 
+      update_by, update_time)
+    values (#{menuId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{orderNum,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, 
+      #{component,jdbcType=VARCHAR}, #{menuType,jdbcType=CHAR}, #{visible,jdbcType=CHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="top.liubaiblog.admin.pojo.Menu" >
+    update ydl_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      perms = #{perms,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      path = #{path,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      menu_type = #{menuType,jdbcType=CHAR},
+      visible = #{visible,jdbcType=CHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select menu_id, menu_name, perms, parent_id, order_num, path, component, menu_type, 
+    visible, icon, create_by, create_time, update_by, update_time
+    from ydl_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select menu_id, menu_name, perms, parent_id, order_num, path, component, menu_type, 
+    visible, icon, create_by, create_time, update_by, update_time
+    from ydl_menu
+  </select>
+</mapper>

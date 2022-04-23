@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.liubaiblog.admin.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="top.liubaiblog.admin.pojo.User">
+        <id column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="phonenumber" property="phonenumber" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="CHAR"/>
+        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="del_flag" property="delFlag" jdbcType="CHAR"/>
+        <result column="login_ip" property="loginIp" jdbcType="VARCHAR"/>
+        <result column="login_date" property="loginDate" jdbcType="TIMESTAMP"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <collection property="roles" ofType="top.liubaiblog.admin.pojo.Role">
+            <id column="role_id" property="roleId" jdbcType="BIGINT"/>
+            <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+            <result column="role_tag" property="roleTag" jdbcType="VARCHAR"/>
+            <collection property="menus" ofType="top.liubaiblog.admin.pojo.Menu">
+                <id column="menu_id" property="menuId" jdbcType="BIGINT"/>
+                <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
+                <result column="perms" property="perms" jdbcType="VARCHAR"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from ydl_user
+        where user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="top.liubaiblog.admin.pojo.User">
+        insert into ydl_user (user_id, user_name, nick_name,
+                              email, phonenumber, sex,
+                              avatar, password, status,
+                              del_flag, login_ip, login_date,
+                              create_by, create_time, update_by,
+                              update_time)
+        values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
+                #{email,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
+                #{avatar,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+                #{delFlag,jdbcType=CHAR}, #{loginIp,jdbcType=VARCHAR}, #{loginDate,jdbcType=TIMESTAMP},
+                #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="top.liubaiblog.admin.pojo.User">
+        update ydl_user
+        set user_name   = #{userName,jdbcType=VARCHAR},
+            nick_name   = #{nickName,jdbcType=VARCHAR},
+            email       = #{email,jdbcType=VARCHAR},
+            phonenumber = #{phonenumber,jdbcType=VARCHAR},
+            sex         = #{sex,jdbcType=CHAR},
+            avatar      = #{avatar,jdbcType=VARCHAR},
+            password    = #{password,jdbcType=VARCHAR},
+            status      = #{status,jdbcType=CHAR},
+            del_flag    = #{delFlag,jdbcType=CHAR},
+            login_ip    = #{loginIp,jdbcType=VARCHAR},
+            login_date  = #{loginDate,jdbcType=TIMESTAMP},
+            create_by   = #{createBy,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_by   = #{updateBy,jdbcType=VARCHAR},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select user_id,
+               user_name,
+               nick_name,
+               email,
+               phonenumber,
+               sex,
+               avatar,
+               password,
+               status,
+               del_flag,
+               login_ip,
+               login_date,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        from ydl_user
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select user_id,
+               user_name,
+               nick_name,
+               email,
+               phonenumber,
+               sex,
+               avatar,
+               password,
+               status,
+               del_flag,
+               login_ip,
+               login_date,
+               create_by,
+               create_time,
+               update_by,
+               update_time
+        from ydl_user
+    </select>
+
+    <!-- User getUserByUserName(@Param("userName") String userName); -->
+    <select id="getUserByUserName" resultMap="BaseResultMap">
+        select *
+        from ydl_user
+        where user_name = #{userName}
+    </select>
+
+    <!-- List<User> selectUserByConditional(@Param("userId") int userId, @Param("nickName") String nickName); -->
+    <select id="selectUserByConditional" resultMap="BaseResultMap">
+        select * from ydl_user
+        <where>
+            <if test="userId != '' and userId != null">
+                user_id=#{userId}
+            </if>
+            <if test="nickName != '' and nickName != null">
+                and nick_name like "%"#{nickName}"%"
+            </if>
+        </where>
+    </select>
+
+    <!-- List<User> getUserInfoById(@Param("userId") String userId); -->
+    <select id="getUserInfoById" resultMap="BaseResultMap">
+        SELECT u.user_id user_id,
+               user_name,
+               nick_name,
+               r.role_id,
+               r.role_name,
+               r.role_tag,
+               m.menu_id,
+               m.menu_name,
+               m.perms
+        FROM ydl_user u
+                 LEFT JOIN `ydl_user_role` ur ON u.user_id = ur.user_id
+                 LEFT JOIN ydl_role r ON ur.role_id = r.role_id
+                 LEFT JOIN ydl_role_menu rm ON r.role_id = rm.role_id
+                 LEFT JOIN ydl_menu m ON rm.menu_id = m.menu_id
+        where u.del_flag = 0
+          and r.del_flag = 0
+          and u.user_id = #{userId}
+    </select>
+</mapper>

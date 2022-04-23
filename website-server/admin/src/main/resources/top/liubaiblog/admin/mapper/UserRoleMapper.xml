@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.liubaiblog.admin.mapper.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="top.liubaiblog.admin.pojo.UserRole" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <id column="role_id" property="roleId" jdbcType="BIGINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from ydl_user_role
+    where user_id = #{userId,jdbcType=BIGINT}
+      and role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="top.liubaiblog.admin.pojo.UserRole" >
+    insert into ydl_user_role (user_id, role_id)
+    values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select user_id, role_id
+    from ydl_user_role
+  </select>
+</mapper>

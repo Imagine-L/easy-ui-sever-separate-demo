@@ -1,36 +1,28 @@
 # 简单前后端分离小项目
 
 #### Description
-根据元动力的ssm小项目修改而成，后端使用了springboot简化开发，前端还是使用的vue。
+根据元动力的ssm小项目修改而成，后端使用了springboot简化开发，前端还是使用的vue，对于原视频的代码可以有适当的修改。
 
-#### Software Architecture
-Software architecture description
+**原视频地址**：https://www.bilibili.com/video/BV1e34y1k7V6
 
-#### Installation
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### Instructions
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### Contribution
-
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+**原仓库地址**：https://gitee.com/zhangnan716/ydl-ssm
 
 
-#### Gitee Feature
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### Technology 
+
+**后端技术**
+
+- SpringBoot 进行项目框架整合(原视频未使用SpringBoot)
+- Spring + SpringMVC + MyBatis 整合开发
+- Maven 作为依赖管理工具
+
+**前端技术**：
+
+- Vue 框架
+- Element-Plus 作为页面模板
+
+**数据库**：
+
+- MySQL 用于关系数据存储
+- Redis 管理缓存

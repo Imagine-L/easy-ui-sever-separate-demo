@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.liubaiblog.admin.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="top.liubaiblog.admin.pojo.Role" >
+    <id column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_tag" property="roleTag" jdbcType="VARCHAR" />
+    <result column="role_sort" property="roleSort" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ydl_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="top.liubaiblog.admin.pojo.Role" >
+    insert into ydl_role (role_id, role_name, role_tag, 
+      role_sort, status, del_flag, 
+      create_by, create_time, update_by, 
+      update_time)
+    values (#{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{roleTag,jdbcType=VARCHAR}, 
+      #{roleSort,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="top.liubaiblog.admin.pojo.Role" >
+    update ydl_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_tag = #{roleTag,jdbcType=VARCHAR},
+      role_sort = #{roleSort,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select role_id, role_name, role_tag, role_sort, status, del_flag, create_by, create_time, 
+    update_by, update_time
+    from ydl_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select role_id, role_name, role_tag, role_sort, status, del_flag, create_by, create_time, 
+    update_by, update_time
+    from ydl_role
+  </select>
+</mapper>
